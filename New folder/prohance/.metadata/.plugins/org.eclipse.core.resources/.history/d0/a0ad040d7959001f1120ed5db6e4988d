@@ -1,0 +1,13 @@
+package task.com.apachepoi;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class ReadingXl {
+  public static void main(String[]arg) {}
+  
+  String excelFilePath ="C:\\Users\\Aaaron\\Desktop\\New folder\\newxl.csv";
+  BufferedReader br = new BufferedReader(new InputStreamReader(excelFilePath));
+  
+  
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%d - %c [%M] -(%p) %m %n</Pattern>
+            </PatternLayout>
+        </Console>
+        <File name="LogToFile" fileName="logs/File.log">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <!-- Email appender configuration -->
+        <SMTP name="EmailAppender" subject="TESTING: %logger{20} - %m">
+            <SMTPHost>smtp.gmail.com</SMTPHost>
+            <SMTPPort>587</SMTPPort>
+            <From>krishsri520@gmail.com</From>
+            <To>krishsri520@gmail.com</To>
+            <To>gopal.s@prohance.net</To>
+            <Username>2k20cse179@kiot.ac.in</Username>
+            <Password>Krishna121@</Password>
+            <Layout class="org.apache.logging.log4j.core.layout.PatternLayout">
+                <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+            </Layout>
+        </SMTP>
+    </Appenders>
+    <Loggers>
+        <Root level="warn">
+            <AppenderRef ref="LogToConsole"/>
+            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="EmailAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

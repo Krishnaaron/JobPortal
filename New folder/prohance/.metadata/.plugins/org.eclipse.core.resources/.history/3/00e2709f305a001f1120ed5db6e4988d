@@ -1,0 +1,63 @@
+package task.com.apachepoi;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("report");
+
+		Object[][] reportData = {
+				{ "Test case", "Received packets", "Lost packets", "Time Taken", "Maximum time", "Average time" }, {"google.com",4,0,892,284,223} };
+
+		
+		int row=reportData.length;
+		int cols =reportData[0].length;
+		
+		System.out.println(row);
+		System.out.println(cols);
+		
+		for(int i =0;i<row;i++) {
+			XSSFRow ro =sheet.createRow(i);
+			for(int c=0;c<cols;c++) {
+				XSSFCell cell =ro.createCell(c);
+				Object value=reportData[i][c];
+				
+				if(value instanceof String)
+					cell.setCellValue((String)value);
+				if(value instanceof Integer)
+					cell.setCellValue((Integer)value);
+				if(value instanceof Boolean)
+					cell.setCellValue((Boolean)value);
+			}
+			
+			
+		}
+		
+		String filePath="";
+		try {
+			FileOutputStream fo = new FileOutputStream(filePath);
+			workbook.write(fo);
+			fo.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+}

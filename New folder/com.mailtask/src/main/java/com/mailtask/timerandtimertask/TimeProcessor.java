@@ -1,0 +1,360 @@
+//package com.mailtask.timerandtimertask;
+//
+//import java.io.File;
+//import java.io.FileOutputStream;
+//import java.io.FileWriter;
+//import java.io.IOException;
+//import java.io.BufferedReader;
+//import java.io.BufferedWriter;
+//import java.io.InputStreamReader;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
+//import java.util.TimerTask;
+//import org.apache.poi.hssf.usermodel.HSSFCell;
+//import org.apache.poi.hssf.usermodel.HSSFRow;
+//import org.apache.poi.hssf.usermodel.HSSFSheet;
+//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+//import org.apache.poi.ss.usermodel.BorderStyle;
+//import org.apache.poi.ss.usermodel.CellStyle;
+//import org.apache.poi.ss.usermodel.FillPatternType;
+//import org.apache.poi.ss.usermodel.Font;
+//import org.apache.poi.ss.usermodel.IndexedColors;
+//import org.apache.poi.ss.usermodel.Workbook;
+//import org.apache.poi.ss.usermodel.WorkbookFactory;
+//
+//import com.mailtask.mailsender.MailSender;
+//
+//public class TimeProcessor extends TimerTask {
+//	private String fileType;
+//	private String report;
+//
+//	public TimeProcessor(String fileType, String report) {
+//		super();
+//		this.fileType = fileType;
+//		this.report = report;
+//	}
+//
+//	public String getReport() {
+//		return report;
+//	}
+//
+//	public void setReport(String report) {
+//		this.report = report;
+//	}
+//
+//	public String getFileType() {
+//		return fileType;
+//	}
+//
+//	public void setFileType(String fileType) {
+//		this.fileType = fileType;
+//	}
+//
+//	public TimeProcessor(String fileType) {
+//		this.fileType = fileType;
+//	}
+//
+//	@Override
+//	public void run() {
+//		String testCase = report;
+//		System.out.println(fileType);
+//		ProcessBuilder pr = new ProcessBuilder();
+//		pr.command("ping", report);
+//		try {
+//			Process process = pr.start();
+//			LocalDateTime local = LocalDateTime.now();
+//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+//			String formattedDateTime = local.format(formatter);
+//			String fileName = "C:\\Users\\Aaaron\\Desktop\\New folder\\" + formattedDateTime + fileType;
+//			File fi = new File(fileName);
+//			fi.createNewFile();
+//			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//			int receivedPackets = 0;
+//			int lostPackets = 0;
+//			int maxTime = 0;
+//			int avgTime = 0;
+//			int timeTaken = 0;
+//			String line;
+//			String[] parts;
+//			// Read the output line by line
+//			while ((line = br.readLine()) != null) {
+//				if (line.contains("Packets: Sent")) {
+//					parts = line.split(",");
+//					receivedPackets = Integer.parseInt(parts[1].trim().split(" ")[2]);
+//					lostPackets = Integer.parseInt(parts[2].trim().split(" ")[2]);
+//				} else if (line.contains("Minimum =")) {
+//					parts = line.trim().split(",");
+//
+//					maxTime = Integer.parseInt(parts[1].split("=")[1].replace("ms", "").trim());
+//					avgTime = Integer.parseInt(parts[2].split("=")[1].replace("ms", "").trim());
+//				}
+//			}
+//
+//			// Calculate time taken
+//			timeTaken = avgTime * receivedPackets;
+//			// csv file Writter
+//			if (fileType.equals(" .csv")) {
+//				System.out.println("csv checker");
+//
+//				try (BufferedWriter writer = new BufferedWriter(new FileWriter(fi))) {
+//					writer.write("Test case,Received packets,Lost packets,Time Taken,Maximum time,Average time\n");
+//					writer.write(testCase + "," + receivedPackets + "," + lostPackets + "," + timeTaken + "," + maxTime
+//							+ "," + avgTime + "\n");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//
+//			} else {
+//				
+//				//Workbook d= WorkbookFactory.create("")
+//				// xlsx file writter
+//				HSSFWorkbook workbook = new HSSFWorkbook();
+//				HSSFSheet sheet = workbook.createSheet("Ping Test Report");
+//				// Create a style for the header with blue background and white text
+//				CellStyle headerStyle = workbook.createCellStyle();
+//				headerStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+//				headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+//				headerStyle.setBorderBottom(BorderStyle.THIN);
+//				headerStyle.setBorderTop(BorderStyle.THIN);
+//				headerStyle.setBorderLeft(BorderStyle.THIN);
+//				headerStyle.setBorderRight(BorderStyle.THIN);
+//				Font headerFont = workbook.createFont();
+//				headerFont.setColor(IndexedColors.WHITE.getIndex());
+//				headerFont.setBold(true);
+//				headerStyle.setFont(headerFont);
+//				// Create a style for data rows with borders
+//				CellStyle dataStyle = workbook.createCellStyle();
+//				dataStyle.setBorderBottom(BorderStyle.THIN);
+//				dataStyle.setBorderTop(BorderStyle.THIN);
+//				dataStyle.setBorderLeft(BorderStyle.THIN);
+//				dataStyle.setBorderRight(BorderStyle.THIN);
+//				// Create header row
+//				HSSFRow headerRow = sheet.createRow(0);
+//				HSSFCell cell = null;
+//				String[] headers = { "Test case", "Received packets", "Lost packets", "Time Taken", "Maximum time",
+//						"Average time" };
+//				for (int i = 0; i < headers.length; i++) {
+//					cell = headerRow.createCell(i);
+//					cell.setCellValue(headers[i]);
+//					cell.setCellStyle(headerStyle);
+//				}
+//
+//				// Create data row
+//				HSSFRow dataRow = sheet.createRow(1);
+//				Object[] data = { testCase, receivedPackets, lostPackets, timeTaken, maxTime, avgTime };
+//
+//				for (int i = 0; i < data.length; i++) {
+//					cell = dataRow.createCell(i);
+//					if (data[i] instanceof String) {
+//						cell.setCellValue((String) data[i]);
+//					} else if (data[i] instanceof Integer) {
+//						cell.setCellValue((Integer) data[i]);
+//					}
+//					cell.setCellStyle(dataStyle);
+//				}
+//
+//				// Write the workbook to a file
+//				try (FileOutputStream fos = new FileOutputStream(fi)) {
+//					workbook.write(fos);
+//				}
+//				// Close workbook
+//				workbook.close();
+//			}
+//			// Send the Excel file via email
+//			MailSender mailSender = new MailSender();
+//			String path = fi.getAbsolutePath();
+//			System.out.println(path);
+//			boolean mailState = mailSender.sendEmailWithAttachment(path);
+//			if (mailState) {
+//				System.out.println("Mail successfully sent");
+//			} else {
+//				System.out.println("Mail not sent");
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//}
+
+
+package com.mailtask.timerandtimertask;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.TimerTask;
+import org.apache.poi.ss.usermodel.*;
+
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+import com.mailtask.mailsender.MailSender;
+
+public class TimeProcessor extends TimerTask {
+    private String fileType;
+    private String report;
+
+    public TimeProcessor(String fileType, String report) {
+        super();
+        this.fileType = fileType;
+        this.report = report;
+    }
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public TimeProcessor(String fileType) {
+        this.fileType = fileType;
+    }
+
+    @Override
+    public void run() {
+        String testCase = report;
+        System.out.println(fileType);
+        ProcessBuilder pr = new ProcessBuilder();
+        pr.command("ping", report);
+        try {
+            Process process = pr.start();
+            LocalDateTime local = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+            String formattedDateTime = local.format(formatter);
+            String fileName = "C:\\Users\\Aaaron\\Desktop\\New folder\\" + formattedDateTime + fileType;
+            File fi = new File(fileName);
+            fi.createNewFile();
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            int receivedPackets = 0;
+            int lostPackets = 0;
+            int maxTime = 0;
+            int avgTime = 0;
+            int timeTaken = 0;
+            String line;
+            String[] parts;
+            // Read the output line by line
+            while ((line = br.readLine()) != null) {
+                if (line.contains("Packets: Sent")) {
+                    parts = line.split(",");
+                    receivedPackets = Integer.parseInt(parts[1].trim().split(" ")[2]);
+                    lostPackets = Integer.parseInt(parts[2].trim().split(" ")[2]);
+                } else if (line.contains("Minimum =")) {
+                    parts = line.trim().split(",");
+
+                    maxTime = Integer.parseInt(parts[1].split("=")[1].replace("ms", "").trim());
+                    avgTime = Integer.parseInt(parts[2].split("=")[1].replace("ms", "").trim());
+                }
+            }
+
+            // Calculate time taken
+            timeTaken = avgTime * receivedPackets;
+            // csv file Writter
+            if (fileType.equals(".csv")) {
+                System.out.println("csv checker");
+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fi))) {
+                    writer.write("Test case,Received packets,Lost packets,Time Taken,Maximum time,Average time\n");
+                    writer.write(testCase + "," + receivedPackets + "," + lostPackets + "," + timeTaken + "," + maxTime
+                            + "," + avgTime + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                // Create workbook using WorkbookFactory to support both .xls and .xlsx
+                Workbook workbook;
+                if (fileType.equals(".xlsx")) {
+                    workbook = WorkbookFactory.create(true);  // XSSFWorkbook
+                } else {
+                    workbook = WorkbookFactory.create(false); // HSSFWorkbook
+                }
+
+                Sheet sheet = workbook.createSheet("Ping Test Report");
+
+                // Create a style for the header with blue background and white text
+                CellStyle headerStyle = workbook.createCellStyle();
+                headerStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+                headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                headerStyle.setBorderBottom(BorderStyle.THIN);
+                headerStyle.setBorderTop(BorderStyle.THIN);
+                headerStyle.setBorderLeft(BorderStyle.THIN);
+                headerStyle.setBorderRight(BorderStyle.THIN);
+                Font headerFont = workbook.createFont();
+                headerFont.setColor(IndexedColors.WHITE.getIndex());
+                headerFont.setBold(true);
+                headerStyle.setFont(headerFont);
+
+                // Create a style for data rows with borders
+                CellStyle dataStyle = workbook.createCellStyle();
+                dataStyle.setBorderBottom(BorderStyle.THIN);
+                dataStyle.setBorderTop(BorderStyle.THIN);
+                dataStyle.setBorderLeft(BorderStyle.THIN);
+                dataStyle.setBorderRight(BorderStyle.THIN);
+
+                // Create header row
+                Row headerRow = sheet.createRow(0);
+                Cell cell;
+                String[] headers = { "Test case", "Received packets", "Lost packets", "Time Taken", "Maximum time",
+                        "Average time" };
+                for (int i = 0; i < headers.length; i++) {
+                    cell = headerRow.createCell(i);
+                    cell.setCellValue(headers[i]);
+                    cell.setCellStyle(headerStyle);
+                }
+
+                // Create data row
+                Row dataRow = sheet.createRow(1);
+                Object[] data = { testCase, receivedPackets, lostPackets, timeTaken, maxTime, avgTime };
+
+                for (int i = 0; i < data.length; i++) {
+                    cell = dataRow.createCell(i);
+                    if (data[i] instanceof String) {
+                        cell.setCellValue((String) data[i]);
+                    } else if (data[i] instanceof Integer) {
+                        cell.setCellValue((Integer) data[i]);
+                    }
+                    cell.setCellStyle(dataStyle);
+                }
+
+                // Write the workbook to a file
+                try (FileOutputStream fos = new FileOutputStream(fi)) {
+                    workbook.write(fos);
+                }
+                // Close workbook
+                workbook.close();
+            }
+            // Send the Excel file via email
+            MailSender mailSender = new MailSender();
+            String path = fi.getAbsolutePath();
+            System.out.println(path);
+            boolean mailState = mailSender.sendEmailWithAttachment(path);
+            if (mailState) {
+                System.out.println("Mail successfully sent");
+            } else {
+                System.out.println("Mail not sent");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+

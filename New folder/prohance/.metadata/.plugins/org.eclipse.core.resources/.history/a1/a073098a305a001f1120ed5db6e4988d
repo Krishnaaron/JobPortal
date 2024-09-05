@@ -1,0 +1,27 @@
+package task.com.apachepoi;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+	public static void main(String[] args) {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("report");
+
+		Object[][] reportData = {
+				{ "Test case", "Received packets", "Lost packets", "Time Taken", "Maximum time", "Average time" }, {"google.com",4,0,892,284,223} };
+
+		
+		int row=reportData.length;
+		int cols =reportData[0].length;
+		
+		System.out.println(row);
+		System.out.println(cols);
+		
+		
+	}
+}

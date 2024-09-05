@@ -1,0 +1,77 @@
+package com.mailtask.timerandtimertask;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.TimerTask;
+
+import com.mailtask.mailsender.MailSender;
+
+public class TimeProcessor extends TimerTask{
+	private String fileType;
+     public String getFileType() {
+		return fileType;
+	}
+
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+
+	public TimeProcessor(String fileType) {
+		
+		this.fileType =fileType;
+	}
+     
+     
+	@Override
+	public void run() {
+	System.out.println(fileType);
+		ProcessBuilder pr = new ProcessBuilder();
+		pr.command("ping","goole.com");
+		try {
+			Process process = pr.start();
+			LocalDateTime local =LocalDateTime.now();
+			 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+	            String formattedDateTime = local.format(formatter);
+			File fi = new File("C:\\Users\\Aaaron\\Desktop\\New folder\\"+formattedDateTime+"fileType");
+			fi.createNewFile();
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			FileWriter fw = new FileWriter(fi);
+			BufferedWriter bw = new BufferedWriter(fw);
+			fw.flush();
+			String line;
+			while((line =br.readLine())!=null) {
+				fw.write(line);
+				System.out.println(line);
+				
+			}
+			fw.close();
+			
+		
+		MailSender mailSender = new MailSender();
+		String path =fi.getAbsolutePath();
+		System.out.println(path);
+		boolean mailState=mailSender.sendEmailWithAttachment(path);
+		if(mailState) {
+			
+			System.out.println("Mail Sucessfully send");
+		}
+		else {
+			System.out.println("Mail Not Send");
+		}
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}

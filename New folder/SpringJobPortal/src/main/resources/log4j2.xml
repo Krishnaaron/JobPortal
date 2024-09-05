@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <!-- Rolling File Appender -->
+        <RollingFile name="RollingFile"
+                     fileName="C:\Users\gopal.s\Desktop\logfiles\file.log"
+                     filePattern="C:\Users\gopal.s\Desktop\oldlogfile\files-%d{yyyy-MM-dd-HH-mm-ss}-%i-1mb.log.zip">
+            <PatternLayout>
+               <Pattern>%d{DD MM YYYY HH:mm:ss} [%thread] [%-5level] %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="2" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
+            </Policies>
+            <DefaultRolloverStrategy fileIndex="min" max="3"/>
+        </RollingFile>
+
+     
+        <Console name="LogToConsole">
+            <PatternLayout>
+              <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%msg%n]</Pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+
+    
+    <Loggers>
+      
+        <Logger name="com.jobportal" level="DEBUG" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+       
+        <Root level="DEBUG">
+            <AppenderRef ref="LogToConsole"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

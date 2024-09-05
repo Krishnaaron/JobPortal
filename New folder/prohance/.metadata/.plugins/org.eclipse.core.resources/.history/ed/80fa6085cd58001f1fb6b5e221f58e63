@@ -1,0 +1,42 @@
+package task.com.task;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+//    	try {
+//			Runtime.getRuntime().exec("shutdown -s -t 10");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+    	ProcessBuilder pb = new ProcessBuilder("ping" ,"google.com");
+    	try {
+			Process process =pb.start();
+			
+			
+			try (Scanner sc = new Scanner(process.getInputStream())) {
+			}
+			process.wait();
+//			while(sc.hasNext()) {
+//				System.out.println(sc.next());
+//			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+        System.out.println( "Hello World!" );
+    }
+}

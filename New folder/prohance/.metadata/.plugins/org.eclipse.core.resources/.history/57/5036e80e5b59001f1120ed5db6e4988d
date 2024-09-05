@@ -1,0 +1,22 @@
+package com.mailtask;
+
+import java.time.LocalDateTime;
+
+import com.mailtask.mailsender.MailSender;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		MailSender se = new MailSender();
+//		
+//		se.sendEmail();
+		LocalDateTime local = LocalDateTime.now();
+		System.out.println(local);
+		
+		
+		
+		
+	}
+
+}

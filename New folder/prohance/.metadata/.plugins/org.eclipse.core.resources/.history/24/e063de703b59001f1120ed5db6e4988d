@@ -1,0 +1,19 @@
+package com.mailtask.timerandtimertask;
+
+import java.util.TimerTask;
+
+public class MailSheduler extends TimerTask{
+	
+	public void run() {
+		MailSender mailSender = new MailSheduler();
+		
+		
+		System.out.println("welcome");
+		
+		
+	}
+	
+	
+	
+
+}

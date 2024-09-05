@@ -1,0 +1,23 @@
+package com.mailtask.timerandtimertask;
+
+import java.util.TimerTask;
+
+import com.mailtask.mailsender.MailSender;
+
+public class TimeProcessor extends TimerTask{
+
+	@Override
+	public void run() {
+		
+		MailSender mailSender = new MailSender();
+		boolean mailState=mailSender.sendEmail();
+		if(mailState) {
+			
+			System.out.println("Mail Sucessfully send");
+		}
+		else {
+			System.out.println("Mail Not Send");
+		}
+	}
+
+}

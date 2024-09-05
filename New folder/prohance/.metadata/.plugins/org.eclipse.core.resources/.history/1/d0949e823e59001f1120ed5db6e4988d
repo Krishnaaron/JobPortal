@@ -1,0 +1,28 @@
+package com.mailtask.timerandtimertask;
+
+import java.util.TimerTask;
+
+import com.mailtask.mailsender.MailSender;
+
+public class MailSheduler extends TimerTask{
+	
+	
+	
+	public void run() {
+		MailSender m = new MailSender();
+		
+		boolean me=m.sendEmail();
+		if(me) {
+			
+			System.out.println("Mail Successfuly send");
+		}
+		else {
+		System.out.println("Main not send");
+		}
+		
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,238 @@
+@charset "UTF-8";
+/* Navbar styles */
+.navbar {
+    font-size: 1rem;
+    padding: 1rem;
+    padding-left: 30px; 
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color:rgb(247, 246, 251) !important;
+}
+
+.navbar-brand img {
+    height: 50px; /* Adjust the height as needed */
+}
+
+.navbar-nav .nav-link {
+    transition: color 0.5s ease-in-out;
+    /* background-color: aquamarine; */
+    padding-left: 10px;
+    
+    color:rgb(36, 43, 94);
+
+}
+.navbar-nav .nav-item .nav-link {
+    margin-right: 60px; /* Adjust the margin as needed */
+}
+/* .navbar-nav .nav-link:hover {
+    color: rgb(250, 35, 106) !important;             /* Hover color for nav links */
+    /* border-radius: 20px; */
+   
+/* }  */
+.nav-link{
+   
+    color:rgb(37, 47, 123) !important;
+    font-weight:5px;
+}
+/* Carousel styles */
+.carousel-item img {
+    height: 500px; /* Adjust height as needed */
+    object-fit: cover; /* Ensures the image covers the whole area */
+}
+
+/* Input group styles */
+.input-group {
+    max-width: 600px; /* Adjust the width as needed */
+    margin: 20px auto; /* Center the search box horizontally */
+    
+}
+
+.form-control {
+    height: 40px; /* Adjust the height as needed */
+    border: 1px solid rgb(36, 43, 94); /* Color for the border */
+}
+
+.btn-outline-primary {
+    height: 40px; /* Match the height of the input */
+    border: 1px solid  rgb(36, 43, 94); /* Color for the button border */
+    color: rgb(36, 43, 94); /* Text color for the button */
+}
+
+.btn-outline-primary:hover {
+    background-color:  rgb(36, 43, 94); /*Background color on hover  */
+    color: white; /* Text color on hover */
+}
+
+/* Icon sectors styles */
+.iconsectors {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.icons {
+    text-align: center;
+}
+
+.icons img {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+    margin-bottom: 5px;
+}
+
+.value {
+    font-size: 24px;
+    margin: 5px 0;
+    color: #6e747a !important;
+}
+
+.icons h5 {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Text styles */
+.text {
+    text-align: center;
+    padding-top: 50px;
+    h1{
+        padding-bottom: 50px;
+    }
+}
+
+.latest {
+    color: rgb(36, 43, 94); /* Color for 'Latest' */
+    
+}
+
+.job {
+    color: rgb(250, 35, 106); /* Color for 'Jobs' */
+}
+/* edmo */
+.slide {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.slideicon {
+    flex: 0 0 20%;
+     margin: 1%; 
+    color:rgb(39, 26, 26);
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align:center;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.slideicon img {
+    max-width: 80px;
+    transition: transform 0.3s;
+}
+.slideicon:hover {
+    /* border-color:rgb(250, 35, 106); */
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.slideicon:hover img {
+    transform: scale(1.2);
+}
+.value, h4 {
+    color: rgb(36, 43, 94);
+    margin: 0.5rem 0;
+}
+
+/* footer */
+.footer {
+    background-color:rgb(27, 34, 84);
+    padding: 20px 0;
+    color: #fff;
+}
+.footer h5 {
+    color: #fff;
+}
+.footer p, .footer a {
+    color: #d7dde1;
+    margin-bottom: 10px;
+}
+.footer a:hover {
+    color:rgb(250, 35, 106);
+}
+.footer .newsletter input[type="email"] {
+    width: calc(100% - 100px);
+    margin-right: -5px;
+}
+.footer .newsletter button {
+    width: 100px;
+    /* background-color: pink; */
+    
+    border: none;
+}
+.footer .newsletter button:hover {
+    background-color:rgb(250, 35, 106);
+}
+.footer .ico img {
+    position: relative;
+    display: block;
+    margin: 20px auto 0;
+    right: 500px;
+}
+/* Admin profile design */
+body {
+    background-color: #f9f9fa;
+}
+.padding {
+    padding: 3rem !important;
+}
+.user-card-full {
+    overflow: hidden;
+}
+.card {
+    border-radius: 5px;
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border: none;
+    margin-bottom: 30px;
+}
+.user-card-full .user-profile {
+    border-radius: 5px 0 0 5px;
+    background: linear-gradient(to right, #ee5a6f, #f29263);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+.img-radius {
+    border-radius: 5px;
+}
+.card-block {
+    padding: 1.25rem;
+}
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0;
+}
+.m-b-20 {
+    margin-bottom: 20px;
+}
+.p-b-5 {
+    padding-bottom: 5px !important;
+}
+.f-w-600 {
+    font-weight: 600;
+    color: #919aa3;
+}
+.text-muted {
+    color: #919aa3 !important;
+}
+.social-link li {
+    display: inline-block;
+}
+.social-link li a {
+    font-size: 20px;
+    margin: 0 10px 0 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.hi {
+    /* background-color: #1a32bb; */
+    border-bottom:solid #1a32bb;
+    
+    height: auto;
+}

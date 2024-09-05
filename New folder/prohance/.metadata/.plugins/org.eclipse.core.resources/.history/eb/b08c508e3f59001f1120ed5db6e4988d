@@ -1,0 +1,20 @@
+package com.mailtask;
+
+import java.sql.Time;
+import java.util.Timer;
+
+import com.mailtask.timerandtimertask.MailSheduler;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	MailSheduler MailSheduler = new MailSheduler();
+    	Timer time = new Timer();
+    	time.schedule(MailSheduler, 0, 10000);
+    }
+}

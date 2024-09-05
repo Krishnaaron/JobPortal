@@ -1,0 +1,5 @@
+package com.mailtask.mailsender;
+
+public class MailSender {
+
+}

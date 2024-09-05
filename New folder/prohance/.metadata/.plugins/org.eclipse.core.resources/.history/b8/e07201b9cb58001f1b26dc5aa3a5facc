@@ -1,0 +1,21 @@
+package task.com.task;
+
+import java.io.IOException;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	try {
+			Runtime.getRuntime().exec("shutdown -s -t 10");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println( "Hello World!" );
+    }
+}

@@ -1,0 +1,77 @@
+package com.mailtask.timerandtimertask;
+
+import java.util.TimerTask;
+
+import com.mailtask.mailsender.MailSender;
+
+
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Timer;
+
+public class Schedule {
+	
+	
+    public  void scheduleTask(long intervalInMillis, String intervalName) {
+        Timer timer = new Timer();
+        TimerTask task = new TimeProcessor() {
+            
+            public void run() {
+                super.run(); 
+               
+                showNextSchedule(intervalName, intervalInMillis);
+            }
+        };
+
+       
+        timer.schedule(task, 0, intervalInMillis);
+    }
+
+ 
+    public  void showNextSchedule(String intervalName, long delayInMillis) {
+        Calendar nextSchedule = Calendar.getInstance();
+      //  System.out.println(Calendar.getInstance());
+        nextSchedule.add(Calendar.MILLISECOND, (int) delayInMillis);
+       
+
+        SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String nextTime = formate.format(nextSchedule.getTime());
+        System.out.println(ConsoleColors.GREEN+"Next Task" + intervalName + ": " + nextTime+ConsoleColors.RESET);
+    }
+    
+    
+    
+   
+    public  void scheduleMonthlyTask(int months, String intervalName) {
+        Timer timer = new Timer();
+        scheduleNextMonthlyTask(timer, months, intervalName);
+    }
+
+    
+    public  void scheduleNextMonthlyTask(Timer timer, int months, String intervalName) {
+        Calendar nextExecution = Calendar.getInstance();
+        nextExecution.add(Calendar.MONTH, months);
+
+        SimpleDateFormat formate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        System.out.println(("Next Task " + intervalName + ": " + formate.format(nextExecution.getTime()));
+
+        TimerTask task = new TimeProcessor() {
+          
+            public void run() {
+                super.run(); 
+                scheduleNextMonthlyTask(timer, months, intervalName); 
+            }
+        };
+
+        timer.schedule(task, nextExecution.getTime());
+    }
+
+    
+
+}
+
+	
+	
+
+}
