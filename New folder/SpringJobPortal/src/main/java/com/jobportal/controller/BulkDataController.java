@@ -39,7 +39,7 @@ public class BulkDataController
 		LOGGER.info("Job posting Templatecontroller {}");
 		sendFile(response, jobsService.createFile(), "jobPostBlankTemplate.xlsx");
 	}
-
+//cont
 	@PostMapping("/ModDataDownload")
 	protected void downloadJobsData(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
